@@ -1,6 +1,5 @@
 scalaVersion := "3.3.1"
 
-enablePlugins(ScalaNativePlugin)
 
 // set to Debug for compilation details (Info is default)
 logLevel := Level.Info
@@ -14,3 +13,16 @@ nativeConfig ~= { c =>
     .withMode(Mode.debug) // releaseFast
     .withGC(GC.immix) // commix
 }
+
+lazy val root = (project in file("."))
+  .aggregate(scalaModule)
+  .settings(
+    // Common settings or dependencies for the entire monorepo
+  )
+
+lazy val scalaModule = project
+  .in(file("scala-module"))
+  .enablePlugins(ScalaNativePlugin)
+  .settings(
+    // Scala-specific settings or dependencies
+  )
