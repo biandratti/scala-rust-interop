@@ -1,0 +1,60 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  JAVA_VERSION: '17'
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Compile
+        run: sbt compile
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable 
+      - name: Compile Rust code
+        run:
+          cd rust-module 
+          rustc --crate-type=dylib src/lib.rs -o target/librust_code.so
+      - name: Set up SBT
+        uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc make cmake
+      - name: Build and Install s2n-tls
+        run: |
+          git clone https://github.com/awslabs/s2n.git
+          cd s2n
+          cmake .
+          make
+          sudo make install
+      - name: Build native binary
+        run: sbt nativeLink
+
