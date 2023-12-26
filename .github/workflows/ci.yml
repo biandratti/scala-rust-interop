@@ -25,10 +25,6 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable 
-      - name: Compile Rust code
-        run: |
-          cd rust-module
-          cargo build --release
       - name: Set up SBT
         uses: coursier/setup-action@v1
         with:
@@ -45,6 +41,9 @@ jobs:
           cmake .
           make
           sudo make install
-      - name: Build native binary
+      - name: Build and compile Rust code
+        run: |
+          cd rust-module && cargo build --release
+      - name: Build Scala native binary
         run: sbt nativeLink
 
