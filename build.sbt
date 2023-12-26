@@ -16,13 +16,16 @@ nativeConfig ~= { c =>
 
 lazy val root = (project in file("."))
   .aggregate(scalaModule)
-  .settings(
-    // Common settings or dependencies for the entire monorepo
-  )
+  .settings()
 
 lazy val scalaModule = project
   .in(file("scala-module"))
   .enablePlugins(ScalaNativePlugin)
+  .dependsOn(rustModule)
   .settings(
-    // Scala-specific settings or dependencies
+    nativeLinkingOptions := Seq(s"-L${baseDirectory.value.getParentFile}/rust-module/target/", "-lrust_code")
   )
+
+lazy val rustModule = project
+  .in(file("rust-module"))
+  .settings()  
