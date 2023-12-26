@@ -14,3 +14,9 @@ export LD_LIBRARY_PATH=$FULL_PATH/rust-module/target/:$LD_LIBRARY_PATH
 ```
 sbt scalaModule/run
 ```
+
+#### Run binary:
+```
+sbt compile
+./scala-module/target/scala-2.12/scalamodule-out
+```
