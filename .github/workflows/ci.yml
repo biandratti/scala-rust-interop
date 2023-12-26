@@ -28,7 +28,7 @@ jobs:
       - name: Compile Rust code
         run: |
           cd rust-module
-          rustc --crate-type=dylib src/lib.rs -o target/librust_code.so
+          cargo build --release
       - name: Set up SBT
         uses: coursier/setup-action@v1
         with:

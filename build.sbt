@@ -23,7 +23,7 @@ lazy val scalaModule = project
   .enablePlugins(ScalaNativePlugin)
   .dependsOn(rustModule)
   .settings(
-    nativeLinkingOptions := Seq(s"-L${baseDirectory.value.getParentFile}/rust-module/target/", "-lrust_code")
+    nativeLinkingOptions := Seq(s"-L${baseDirectory.value.getParentFile}/rust-module/target/release/", "-lrust_code")
   )
 
 lazy val rustModule = project

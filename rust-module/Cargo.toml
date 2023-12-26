@@ -1,6 +1,10 @@
 [package]
-name = "rust-module"
+name = "rust_code"
 version = "0.1.0"
 edition = "2021"
+
+[lib]
+name = "rust_code"
+crate-type = ["cdylib"] 
 
 [dependencies]
