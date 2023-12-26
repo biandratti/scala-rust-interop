@@ -17,6 +17,11 @@ sbt scalaModule/run
 
 #### Run binary:
 ```
-sbt compile
+sbt nativeLink
 ./scala-module/target/scala-2.12/scalamodule-out
+```
+
+#### Run test:
+```
+sbt test
 ```

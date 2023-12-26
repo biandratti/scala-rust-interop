@@ -1,7 +1,5 @@
 scalaVersion := "3.3.1"
 
-
-// set to Debug for compilation details (Info is default)
 logLevel := Level.Info
 
 // import to add Scala Native options
@@ -14,6 +12,15 @@ nativeConfig ~= { c =>
     .withGC(GC.immix) // commix
 }
 
+/*lazy val commonSettings = Seq(
+  organization := "com.biandratti",
+  scalaVersion := "3.3.1",
+  logLevel := Level.Info
+  scalacOptions ++= List(
+    "-Wunused"
+  )
+)*/
+
 lazy val root = (project in file("."))
   .aggregate(scalaModule)
   .settings()
@@ -21,11 +28,20 @@ lazy val root = (project in file("."))
 lazy val scalaModule = project
   .in(file("scala-module"))
   .enablePlugins(ScalaNativePlugin)
+  //.settings(commonSettings)
   .dependsOn(rustModule)
   .settings(
-    nativeLinkingOptions := Seq(s"-L${baseDirectory.value.getParentFile}/rust-module/target/release/", "-lrust_code")
+    nativeLinkingOptions := Seq(
+      s"-L${baseDirectory.value.getParentFile}/rust-module/target/release/",
+      "-lrust_code"
+    ),
+    libraryDependencies ++= Seq(
+      //"org.typelevel" %% "cats-effect" % "3.5.2",
+      "org.scalameta" %% "munit" % "0.7.29" % Test,
+      "org.scalameta" %% "munit-scalacheck" % "0.7.29" % Test
+    )
   )
 
 lazy val rustModule = project
   .in(file("rust-module"))
-  .settings()  
+  .settings()
