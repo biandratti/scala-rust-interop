@@ -47,5 +47,7 @@ jobs:
       - name: Build Scala native binary
         run: sbt nativeLink
       - name: Runt Tests
-        run: sbt test
+        run: |
+          export LD_LIBRARY_PATH=${PWD}/rust-module/target/release/:$LD_LIBRARY_PATH
+          sbt test
 
