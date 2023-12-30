@@ -46,4 +46,6 @@ jobs:
           cd rust-module && cargo build --release
       - name: Build Scala native binary
         run: sbt nativeLink
+      - name: Runt Tests
+        run: sbt test
 
