@@ -1,4 +1,4 @@
-package `com.biandratti`
+package com.biandratti
 
 import scala.scalanative.unsafe._
 

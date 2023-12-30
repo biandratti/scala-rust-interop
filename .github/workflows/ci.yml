@@ -46,4 +46,8 @@ jobs:
           cd rust-module && cargo build --release
       - name: Build Scala native binary
         run: sbt nativeLink
+      - name: Runt Tests
+        run: |
+          export LD_LIBRARY_PATH=${PWD}/rust-module/target/release/:$LD_LIBRARY_PATH
+          sbt test
 
