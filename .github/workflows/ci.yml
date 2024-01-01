@@ -19,9 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+        uses: moonrepo/setup-rust@v1
       - name: Build and test
         run: cd rust-module && cargo build --verbose && cargo test --verbose
       - name: Check code formatting
@@ -33,9 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable 
+        uses: moonrepo/setup-rust@v1
       - name: Set up SBT
         uses: coursier/setup-action@v1
         with:
@@ -45,7 +41,8 @@ jobs:
         run: sbt checkFormat
       - name: Scalafix Lint
         run: sbt scalafixLint
-      - uses: ./.github/actions/linux-setup-env
+      - name: Setup s2n
+        uses: ./.github/actions/linux-setup-env
       - name: Build and compile Rust lib
         run: cd rust-module && cargo build --release
       - name: Build Scala native binary
