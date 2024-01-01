@@ -10,14 +10,25 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 env:
   JAVA_VERSION: '17'
 
 jobs:
-  compile-native:
+  build-rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Build and test
+        run: cd rust-module && cargo build --verbose && cargo test --verbose
+      - name: Check code formatting
+        run: cd rust-module && cargo fmt -- --check
+      - name: Check lint
+        run: cd rust-module && cargo clippy -- -D warnings
+  build-scala-native:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,6 +41,10 @@ jobs:
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
+      - name: Check format
+        run: sbt checkFormat
+      - name: Scalafix Lint
+        run: sbt scalafixLint
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -41,9 +56,8 @@ jobs:
           cmake .
           make
           sudo make install
-      - name: Build and compile Rust code
-        run: |
-          cd rust-module && cargo build --release
+      - name: Build and compile Rust lib
+        run: cd rust-module && cargo build --release
       - name: Build Scala native binary
         run: sbt nativeLink
       - name: Runt Tests

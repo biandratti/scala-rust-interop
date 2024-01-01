@@ -9,7 +9,7 @@ nativeConfig ~= { c =>
 }
 
 lazy val commonSettings = Seq(
-  // organization := "com.biandratti",
+  organization := "com.biandratti",
   scalaVersion := "3.3.1",
   logLevel := Level.Info /*,
   scalacOptions ++= List(
@@ -42,3 +42,6 @@ lazy val scalaModule = project
 lazy val rustModule = project
   .in(file("rust-module"))
   .settings(commonSettings)
+
+addCommandAlias("checkFormat", ";scalafmtSbtCheck ;scalafmtCheckAll")
+addCommandAlias("scalafixLint", ";compile ;scalafix")
