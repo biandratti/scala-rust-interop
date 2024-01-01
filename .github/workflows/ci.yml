@@ -41,7 +41,7 @@ jobs:
         run: sbt checkFormat
       - name: Scalafix Lint
         run: sbt scalafixLint
-      - name: Setup s2n
+      - name: Setup llvm
         uses: ./.github/actions/linux-setup-env
       - name: Build and compile Rust lib
         run: cd rust-module && cargo build --release
