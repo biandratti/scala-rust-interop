@@ -1,5 +1,5 @@
-name: "Unix s2n setup"
-description: "Used to setup s2n in Unix"
+name: "Unix llvm setup"
+description: "Used to setup llvm in Unix"
 runs:
   using: "composite"
   steps:
@@ -12,7 +12,7 @@ runs:
         shell: bash
         command: |
           sudo apt-get update
-          sudo apt-get install -y gcc make cmake
+          sudo apt-get install libgc-dev
     - name: Build and Install s2n-tls
       uses: nick-fields/retry@v2
       with:
@@ -21,8 +21,6 @@ runs:
         retry_on: error
         shell: bash
         command: |
-          git clone https://github.com/awslabs/s2n.git
-          cd s2n
-          cmake .
-          make
-          sudo make install
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          (yes "" || true) | sudo ./llvm.sh ${{ inputs.llvm-version }}

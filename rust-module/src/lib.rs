@@ -1,6 +1,7 @@
+use reqwest::Error;
 use std::ffi::CString;
-use std::os::raw::c_char;
 use std::future::Future;
+use std::os::raw::c_char;
 use std::pin::Pin;
 use tokio::runtime::Runtime;
 
@@ -9,11 +10,10 @@ pub extern "C" fn multiply_by_two(num: i32) -> i32 {
     num * 2
 }
 
-
-fn httpbin_async() -> Pin<Box<dyn Future<Output = Result<String, reqwest::Error>>>> {
+fn httpbin_async() -> Pin<Box<dyn Future<Output = Result<String, Error>>>> {
     Box::pin(async {
         let response = reqwest::get("https://httpbin.org/ip").await?;
-        Ok(response.text().await?)
+        response.text().await
     })
 }
 
