@@ -18,21 +18,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Rust
+      - name: Setup Rust
         uses: moonrepo/setup-rust@v1
       - name: Build and test
         run: cd rust-module && cargo build --verbose && cargo test --verbose
       - name: Check code formatting
         run: cd rust-module && cargo fmt -- --check
-      - name: Check lint
+      - name: Clippy lint
         run: cd rust-module && cargo clippy -- -D warnings
   build-scala-native:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Rust
+      - name: Setup Rust
         uses: moonrepo/setup-rust@v1
-      - name: Set up SBT
+      - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
