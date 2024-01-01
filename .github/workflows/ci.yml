@@ -20,12 +20,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup Rust
         uses: moonrepo/setup-rust@v1
-      - name: Build and test
-        run: cd rust-module && cargo build --verbose && cargo test --verbose
       - name: Check code formatting
         run: cd rust-module && cargo fmt -- --check
       - name: Clippy lint
         run: cd rust-module && cargo clippy -- -D warnings
+      - name: Build and test
+        run: cd rust-module && cargo build --verbose && cargo test --verbose
   build-scala-native:
     runs-on: ubuntu-latest
     steps:
@@ -51,4 +51,3 @@ jobs:
         run: |
           export LD_LIBRARY_PATH=${PWD}/rust-module/target/release/:$LD_LIBRARY_PATH
           sbt test
-
