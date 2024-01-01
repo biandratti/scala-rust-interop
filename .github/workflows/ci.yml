@@ -45,17 +45,7 @@ jobs:
         run: sbt checkFormat
       - name: Scalafix Lint
         run: sbt scalafixLint
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc make cmake
-      - name: Build and Install s2n-tls
-        run: |
-          git clone https://github.com/awslabs/s2n.git
-          cd s2n
-          cmake .
-          make
-          sudo make install
+      - uses: ./.github/actions/linux-setup-env
       - name: Build and compile Rust lib
         run: cd rust-module && cargo build --release
       - name: Build Scala native binary
