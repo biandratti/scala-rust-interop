@@ -8,3 +8,4 @@ name = "rust_code"
 crate-type = ["cdylib"] 
 
 [dependencies]
+rustfmt = "0.10.0"

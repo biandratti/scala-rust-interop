@@ -10,40 +10,41 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 env:
   JAVA_VERSION: '17'
 
 jobs:
-  compile-native:
+  build-rust:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable 
-      - name: Set up SBT
+      - name: Setup Rust
+        uses: moonrepo/setup-rust@v1
+      - name: Build and test
+        run: cd rust-module && cargo build --verbose && cargo test --verbose
+      - name: Check code formatting
+        run: cd rust-module && cargo fmt -- --check
+      - name: Clippy lint
+        run: cd rust-module && cargo clippy -- -D warnings
+  build-scala-native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Rust
+        uses: moonrepo/setup-rust@v1
+      - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc make cmake
-      - name: Build and Install s2n-tls
-        run: |
-          git clone https://github.com/awslabs/s2n.git
-          cd s2n
-          cmake .
-          make
-          sudo make install
-      - name: Build and compile Rust code
-        run: |
-          cd rust-module && cargo build --release
+      - name: Check format
+        run: sbt checkFormat
+      - name: Scalafix Lint
+        run: sbt scalafixLint
+      - name: Setup s2n
+        uses: ./.github/actions/linux-setup-env
+      - name: Build and compile Rust lib
+        run: cd rust-module && cargo build --release
       - name: Build Scala native binary
         run: sbt nativeLink
       - name: Runt Tests
