@@ -1,6 +1,8 @@
 // import to add Scala Native options
 import scala.scalanative.build._
 
+name := "scala rust interoperability"
+
 // defaults set with common options shown
 nativeConfig ~= { c =>
   c.withLTO(LTO.none) // thin
