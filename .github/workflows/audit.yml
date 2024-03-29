@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'rust-module/Cargo.toml'
+      - '**/Cargo.toml'
+      - '**/Cargo.lock'
 
 jobs:
   security_audit:
