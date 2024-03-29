@@ -14,24 +14,46 @@ env:
   JAVA_VERSION: '17'
 
 jobs:
-  build-rust:
+  rust_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Rust
-        uses: moonrepo/setup-rust@v1
-      - name: Check code formatting
+      - name: Build
+        run: cd rust-module && cargo build --verbose
+  rust_fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check fmt
         run: cd rust-module && cargo fmt -- --check
-      - name: Clippy lint
-        run: cd rust-module && cargo clippy -- -D warnings
-      - name: Build and test
-        run: cd rust-module && cargo build --verbose && cargo test --verbose
-  build-scala-native:
+  rust_lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Rust
-        uses: moonrepo/setup-rust@v1
+      - name: Check lint
+        run: cd rust-module && cargo clippy -- -D warnings
+  rust_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: cd rust-module && cargo test --verbose
+
+  scala_compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup SBT
+        uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Compile
+        run: sbt compile
+  scala_fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
       - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
@@ -39,14 +61,45 @@ jobs:
           apps: sbt
       - name: Check format
         run: sbt checkFormat
-      - name: Scalafix Lint
+  scala_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup SBT
+        uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Check lint
         run: sbt scalafixLint
+  scala_build_native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup SBT
+        uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
       - name: Setup llvm
         uses: ./.github/actions/linux-setup-env
       - name: Build and compile Rust lib
         run: cd rust-module && cargo build --release
       - name: Build Scala native binary
         run: sbt nativeLink
+  scala_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup SBT
+        uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Setup llvm
+        uses: ./.github/actions/linux-setup-env
+      - name: Build and compile Rust lib
+        run: cd rust-module && cargo build --release
       - name: Runt Tests
         run: |
           export LD_LIBRARY_PATH=${PWD}/rust-module/target/release/:$LD_LIBRARY_PATH
