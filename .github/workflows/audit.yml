@@ -1,11 +1,10 @@
-name: Security audit
+name: Rust Security Audit
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - '**/Cargo.toml'
-      - '**/Cargo.lock'
+      - 'rust-module/Cargo.toml'
 
 jobs:
   security_audit:
