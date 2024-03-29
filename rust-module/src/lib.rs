@@ -22,11 +22,29 @@ pub extern "C" fn get_ip() -> *mut c_char {
     let runtime = Runtime::new().unwrap();
     let response = runtime.block_on(httpbin_async());
 
-    let response_string: String = match response {
-        Ok(text) => text,
-        Err(e) => format!("Error: {:?}", e),
-    };
+    let response_string: String = response.unwrap_or_else(|e| format!("Error: {:?}", e));
 
     let c_string: CString = CString::new(response_string).unwrap();
     c_string.into_raw()
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{get_ip, multiply_by_two};
+    use std::ffi::CString;
+
+    #[test]
+    fn test_multiply_by_two() {
+        assert_eq!(multiply_by_two(2), 4);
+        assert_eq!(multiply_by_two(5), 10);
+        assert_eq!(multiply_by_two(-3), -6);
+    }
+
+    #[test]
+    fn test_get_ip_cstring() {
+        let c_str_ptr = get_ip();
+        let c_str = unsafe { CString::from_raw(c_str_ptr) };
+        let str_value = c_str.to_str().unwrap();
+        assert!(str_value.contains("origin"));
+    }
 }
