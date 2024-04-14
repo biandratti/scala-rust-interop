@@ -30,10 +30,19 @@ lazy val scalaModule = project
   .dependsOn(rustModule)
   .aggregate(rustModule)
   .settings(
-    nativeLinkingOptions := Seq(
-      s"-L${baseDirectory.value.getParentFile}/rust-module/target/release/",
-      "-lrust_code"
-    ),
+    nativeConfig := {
+      val libBase = baseDirectory.value / "rust-module"
+      val conf = nativeConfig.value
+      conf
+        .withLinkingOptions(
+          conf.linkingOptions ++ List(
+            s"-L$libBase/target/release/"
+          )
+        )
+        .withCompileOptions(
+          List("-lrust_code") ++ conf.compileOptions
+        )
+    },
     libraryDependencies ++= Seq(
       // "org.typelevel" %% "cats-effect" % "3.5.2",
       "org.scalameta" %% "munit" % "0.7.29" % Test,
