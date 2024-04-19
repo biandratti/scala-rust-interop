@@ -12,7 +12,7 @@ nativeConfig ~= { c =>
 
 lazy val commonSettings = Seq(
   organization := "com.biandratti",
-  scalaVersion := "3.3.3",
+  scalaVersion := "3.4.1",
   logLevel := Level.Info /*,
   scalacOptions ++= List(
     "-Wunused"
@@ -31,20 +31,15 @@ lazy val scalaModule = project
   .aggregate(rustModule)
   .settings(
     nativeConfig := {
-      val libBase = baseDirectory.value / "rust-module"
-      val conf = nativeConfig.value
-      conf
+      nativeConfig.value
         .withLinkingOptions(
-          conf.linkingOptions ++ List(
-            s"-L$libBase/target/release/"
+          Seq(
+            s"-L${baseDirectory.value.getParentFile}/rust-module/target/release/",
+            "-lrust_code"
           )
-        )
-        .withCompileOptions(
-          List("-lrust_code") ++ conf.compileOptions
         )
     },
     libraryDependencies ++= Seq(
-      // "org.typelevel" %% "cats-effect" % "3.5.2",
       "org.scalameta" %% "munit" % "0.7.29" % Test,
       "org.scalameta" %% "munit-scalacheck" % "0.7.29" % Test
     )
