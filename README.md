@@ -23,7 +23,7 @@ sbt scalaModule/run
 ###### Run binary:
 ```
 sbt nativeLink
-./scala-module/target/scala-3.4.1/scalamodule
+./scala-module/target/scala-3.4.2/scalamodule
 ```
 ###### Run test:
 ```

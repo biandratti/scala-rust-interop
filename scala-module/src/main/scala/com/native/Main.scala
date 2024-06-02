@@ -1,4 +1,4 @@
-package com.biandratti
+package com.native
 
 import scala.scalanative.unsafe.fromCString
 
