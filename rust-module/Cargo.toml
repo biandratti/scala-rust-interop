@@ -11,4 +11,4 @@ crate-type = ["cdylib"]
 rustfmt = "0.10.0"
 tokio = { version = "1", features = ["full"] }
 reqwest = "0.12.5"
-openssl-sys = { version = "0.9.102", features = ["vendored"] }
+openssl-sys = { version = "0.9.103", features = ["vendored"] }
