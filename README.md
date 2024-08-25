@@ -23,7 +23,8 @@ sbt scalaModule/run
 ###### Run binary:
 ```
 sbt nativeLink
-./scala-module/target/scala-3.4.2/scalamodule
+SCALA_VERSION=$(sbt "scalaVersion" | tail -1 | awk '{print $NF}')
+./scala-module/target/scala-$SCALA_VERSION/scalamodule
 ```
 ###### Run test:
 ```
