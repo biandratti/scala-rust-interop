@@ -12,7 +12,7 @@ nativeConfig ~= { c =>
 
 lazy val commonSettings = Seq(
   organization := "com.native",
-  scalaVersion := "3.7.0",
+  scalaVersion := "3.7.1",
   logLevel := Level.Info /*,
   scalacOptions ++= List(
     "-Wunused"
