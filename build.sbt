@@ -12,7 +12,7 @@ nativeConfig ~= { c =>
 
 lazy val commonSettings = Seq(
   organization := "com.native",
-  scalaVersion := "3.7.1",
+  scalaVersion := "3.7.3",
   logLevel := Level.Info /*,
   scalacOptions ++= List(
     "-Wunused"
@@ -41,7 +41,7 @@ lazy val scalaModule = project
     },
     libraryDependencies ++= Seq(
       "org.scalameta" %% "munit" % "1.1.1" % Test,
-      "org.scalameta" %% "munit-scalacheck" % "1.1.0" % Test
+      "org.scalameta" %% "munit-scalacheck" % "1.2.0" % Test
     )
   )
 
