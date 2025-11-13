@@ -17,9 +17,9 @@ jobs:
   rust_build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -35,9 +35,9 @@ jobs:
   rust_fmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -53,9 +53,9 @@ jobs:
   rust_lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -71,9 +71,9 @@ jobs:
   rust_tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -90,14 +90,14 @@ jobs:
   scala_compile:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -111,14 +111,14 @@ jobs:
   scala_fmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -132,14 +132,14 @@ jobs:
   scala_lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -153,14 +153,14 @@ jobs:
   scala_build_native:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -170,7 +170,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-sbt-
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -190,14 +190,14 @@ jobs:
   scala_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Setup SBT
         uses: coursier/setup-action@v1
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -207,7 +207,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-sbt-
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
