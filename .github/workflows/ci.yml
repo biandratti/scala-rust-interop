@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -55,7 +55,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -73,7 +73,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -97,7 +97,7 @@ jobs:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -118,7 +118,7 @@ jobs:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -139,7 +139,7 @@ jobs:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -160,7 +160,7 @@ jobs:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -170,7 +170,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-sbt-
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -197,7 +197,7 @@ jobs:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Cache SBT dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.sbt
@@ -207,7 +207,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-sbt-
       - name: Cache Rust dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
