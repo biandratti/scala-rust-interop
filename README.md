@@ -1,32 +1,47 @@
-# Interoperability Between Scala and Rust
-This repository demonstrates how to achieve interoperability between Scala and Rust by integrating Rust code as a shared library within a Scala Native project.
+# Scala-Rust Interop
 
-### Setup
-###### Rust Module
-1. Navigate to the rust-module directory.
-2. Build the Rust code into a shared library (dynamic library) using Cargo:
-```
+Demonstrates interoperability between **Scala Native** and **Rust** by calling Rust functions from Scala through FFI (Foreign Function Interface).
+
+## Prerequisites
+
+- [Rust](https://rustup.rs/) (Cargo)
+- [Scala](https://www.scala-lang.org/) with sbt
+- [Scala Native](https://scala-native.org/) dependencies
+
+## Quick Start
+
+**1. Build the Rust library:**
+```bash
 cd rust-module
 cargo build --release
+cd ..
 ```
-###### In the root
-1. Run the following command to specify additional directories to search for shared libraries at runtime (required on Linux):
-```
+
+**2. Set library path (Linux/macOS):**
+```bash
 export LD_LIBRARY_PATH=${PWD}/rust-module/target/release/:$LD_LIBRARY_PATH
 ```
 
-### Running the Application
-###### Run app:
-```
+**3. Run the application:**
+```bash
 sbt scalaModule/run
 ```
-###### Run binary:
+
+## Additional Commands
+
+**Run tests:**
+```bash
+sbt test
 ```
+
+**Build native binary:**
+```bash
 sbt nativeLink
 SCALA_VERSION=$(sbt "scalaVersion" | tail -1 | awk '{print $NF}')
 ./scala-module/target/scala-$SCALA_VERSION/scalamodule
 ```
-###### Run test:
-```
-sbt test
-```
+
+## Project Structure
+
+- `rust-module/` - Rust library exposing C-compatible functions
+- `scala-module/` - Scala Native application calling Rust code
