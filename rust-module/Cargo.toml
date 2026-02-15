@@ -9,6 +9,6 @@ crate-type = ["cdylib"]
 
 [dependencies]
 rustfmt = "0.10.0"
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.49.0", features = ["full"] }
 reqwest = "0.13.2"
 openssl-sys = { version = "0.9.111", features = ["vendored"] }
