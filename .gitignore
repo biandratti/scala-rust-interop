@@ -1,7 +1,9 @@
 logs
 target
 /.bsp
-/.idea
+# Ignore .idea except runConfigurations (so we can share "Scala Native Run")
+/.idea/*
+!/.idea/runConfigurations/
 /.idea_modules
 /.classpath
 /.project
