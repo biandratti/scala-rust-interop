@@ -10,4 +10,4 @@ crate-type = ["cdylib"]
 [dependencies]
 tokio = { version = "1.50.0", features = ["full"] }
 reqwest = "0.13.2"
-openssl-sys = { version = "0.9.111", features = ["vendored"] }
+openssl-sys = { version = "0.9.112", features = ["vendored"] }
