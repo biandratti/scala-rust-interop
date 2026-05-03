@@ -8,6 +8,6 @@ name = "rust_code"
 crate-type = ["cdylib"] 
 
 [dependencies]
-tokio = { version = "1.52.0", features = ["full"] }
+tokio = { version = "1.52.1", features = ["full"] }
 reqwest = "0.13.3"
 openssl-sys = { version = "0.9.113", features = ["vendored"] }
