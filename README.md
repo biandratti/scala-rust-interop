@@ -41,6 +41,10 @@ SCALA_VERSION=$(sbt "scalaVersion" | tail -1 | awk '{print $NF}')
 ./scala-module/target/scala-$SCALA_VERSION/scalamodule
 ```
 
+## IntelliJ IDEA Run/Debug
+
+To run or debug from IntelliJ IDEA (instead of the terminal), use an **SBT Task** run configuration for `scalaModule/run` and set the library path so the native binary finds the Rust library. Step-by-step instructions and a shared run configuration are in **[docs/IDEA-RUN-DEBUG.md](docs/IDEA-RUN-DEBUG.md)**.
+
 ## Project Structure
 
 - `rust-module/` - Rust library exposing C-compatible functions
