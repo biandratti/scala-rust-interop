@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Scala Native Run" type="SbtTaskConfigurationType" factoryName="Sbt Task">
+    <option name="workingDirectory" value="$PROJECT_DIR$" />
+    <option name="tasks">
+      <list>
+        <option value="scalaModule/run" />
+      </list>
+    </option>
+    <option name="envVars">
+      <map>
+        <entry key="LD_LIBRARY_PATH" value="$PROJECT_DIR$/rust-module/target/release" />
+      </map>
+    </option>
+  </configuration>
+</component>
