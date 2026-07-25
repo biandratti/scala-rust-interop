@@ -1,13 +1,20 @@
 // import to add Scala Native options
 import scala.scalanative.build._
 
+inThisBuild(
+  List(
+    scalaVersion := "3.8.4",
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision
+  )
+)
+
 lazy val commonSettings = Seq(
   organization := "com.native",
-  scalaVersion := "3.8.4",
-  logLevel := Level.Info /*,
+  logLevel := Level.Info,
   scalacOptions ++= List(
-    "-Wunused"
-  )*/
+    "-Wunused:imports"
+  )
 )
 
 lazy val root = (project in file("."))
