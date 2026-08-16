@@ -42,7 +42,7 @@ lazy val scalaModule = project
           )
         )
     },
-    libraryDependencies += "org.scalameta" %% "munit" % "1.3.4" % Test
+    libraryDependencies += "org.scalameta" %% "munit" % "1.3.5" % Test
   )
 
 lazy val rustModule = project
