@@ -3,7 +3,7 @@ import scala.scalanative.build._
 
 inThisBuild(
   List(
-    scalaVersion := "3.8.4",
+    scalaVersion := "3.9.0",
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision
   )
